@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "es5",
-		"out": "./engine/out/engine.js",
+		"out": "./out/angel.js",
 		"declaration": true
 	},
 	"files": [

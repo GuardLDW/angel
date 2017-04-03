@@ -16,6 +16,7 @@ namespace engine {
         width = 1;
         height = 1;
         isPointInRectangle(point: Point) {
+             console.log("333");
             let rect = this;
             if (point.x < rect.width + rect.x &&
                 point.y < rect.height + rect.y &&
