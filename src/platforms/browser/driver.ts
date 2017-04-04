@@ -1,4 +1,4 @@
-namespace engine{
+namespace angel{
 
     //记录位置
     export var currentX : number;

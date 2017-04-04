@@ -8,8 +8,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var engine;
-(function (engine) {
+var angel;
+(function (angel) {
     var Point = (function () {
         function Point(x, y) {
             this.x = x;
@@ -17,7 +17,7 @@ var engine;
         }
         return Point;
     }());
-    engine.Point = Point;
+    angel.Point = Point;
     var Rectangle = (function () {
         function Rectangle() {
             this.x = 0;
@@ -40,13 +40,13 @@ var engine;
         };
         return Rectangle;
     }());
-    engine.Rectangle = Rectangle;
+    angel.Rectangle = Rectangle;
     function pointAppendMatrix(point, m) {
         var x = m.a * point.x + m.c * point.y + m.tx;
         var y = m.b * point.x + m.d * point.y + m.ty;
         return new Point(x, y);
     }
-    engine.pointAppendMatrix = pointAppendMatrix;
+    angel.pointAppendMatrix = pointAppendMatrix;
     /**
      * 使用伴随矩阵法求逆矩阵
      * http://wenku.baidu.com/view/b0a9fed8ce2f0066f53322a9
@@ -72,7 +72,7 @@ var engine;
         result.ty = -(b * tx + d * ty);
         return result;
     }
-    engine.invertMatrix = invertMatrix;
+    angel.invertMatrix = invertMatrix;
     function matrixAppendMatrix(m1, m2) {
         var result = new Matrix();
         result.a = m1.a * m2.a + m1.b * m2.c;
@@ -83,7 +83,7 @@ var engine;
         result.ty = m2.b * m1.tx + m2.d * m1.ty + m2.ty;
         return result;
     }
-    engine.matrixAppendMatrix = matrixAppendMatrix;
+    angel.matrixAppendMatrix = matrixAppendMatrix;
     var PI = Math.PI;
     var HalfPI = PI / 2;
     var PacPI = PI + HalfPI;
@@ -121,10 +121,10 @@ var engine;
         };
         return Matrix;
     }());
-    engine.Matrix = Matrix;
-})(engine || (engine = {}));
-var engine;
-(function (engine) {
+    angel.Matrix = Matrix;
+})(angel || (angel = {}));
+var angel;
+(function (angel) {
     var TheEvent = (function () {
         function TheEvent(type, func, targetDisplayObject, ifCapture) {
             this.type = "";
@@ -136,7 +136,7 @@ var engine;
         }
         return TheEvent;
     }());
-    engine.TheEvent = TheEvent;
+    angel.TheEvent = TheEvent;
     var EventManager = (function () {
         function EventManager() {
         }
@@ -152,10 +152,10 @@ var engine;
         };
         return EventManager;
     }());
-    engine.EventManager = EventManager;
-})(engine || (engine = {}));
-var engine;
-(function (engine) {
+    angel.EventManager = EventManager;
+})(angel || (angel = {}));
+var angel;
+(function (angel) {
     var Ticker = (function () {
         function Ticker() {
             this.listeners = [];
@@ -179,10 +179,10 @@ var engine;
         };
         return Ticker;
     }());
-    engine.Ticker = Ticker;
-})(engine || (engine = {}));
-var engine;
-(function (engine) {
+    angel.Ticker = Ticker;
+})(angel || (angel = {}));
+var angel;
+(function (angel) {
     var Tween = (function () {
         function Tween(object, moveData, idleData) {
             this.object = object;
@@ -248,10 +248,10 @@ var engine;
         };
         return Tween;
     }());
-    engine.Tween = Tween;
-})(engine || (engine = {}));
-var engine;
-(function (engine) {
+    angel.Tween = Tween;
+})(angel || (angel = {}));
+var angel;
+(function (angel) {
     var DisplayObject = (function () {
         function DisplayObject(type) {
             this.x = 0;
@@ -269,8 +269,8 @@ var engine;
             this.eventArray = [];
             this.type = "displayObject";
             this.type = type;
-            this.matrix = new engine.Matrix();
-            this.globalMatrix = new engine.Matrix();
+            this.matrix = new angel.Matrix();
+            this.globalMatrix = new angel.Matrix();
         }
         //final，所有子类都要执行且不能修改
         DisplayObject.prototype.update = function () {
@@ -279,7 +279,7 @@ var engine;
             //Alpha值
             if (this.parent) {
                 this.globalAlpha = this.parent.globalAlpha * this.alpha;
-                this.globalMatrix = engine.matrixAppendMatrix(this.matrix, this.parent.globalMatrix);
+                this.globalMatrix = angel.matrixAppendMatrix(this.matrix, this.parent.globalMatrix);
             }
             else {
                 this.globalAlpha = this.alpha;
@@ -289,12 +289,12 @@ var engine;
         };
         //添加到本控件的EVent数组中
         DisplayObject.prototype.addEventListener = function (type, func, targetDisplayObject, ifCapture) {
-            var e = new engine.TheEvent(type, func, targetDisplayObject, ifCapture);
+            var e = new angel.TheEvent(type, func, targetDisplayObject, ifCapture);
             this.eventArray.push(e);
         };
         return DisplayObject;
     }());
-    engine.DisplayObject = DisplayObject;
+    angel.DisplayObject = DisplayObject;
     var Bitmap = (function (_super) {
         __extends(Bitmap, _super);
         function Bitmap() {
@@ -303,14 +303,14 @@ var engine;
             return _this;
         }
         Bitmap.prototype.hitTest = function (x, y) {
-            var rect = new engine.Rectangle();
+            var rect = new angel.Rectangle();
             rect.x = 0;
             rect.y = 0;
             rect.width = this.image.width;
             rect.height = this.image.height;
-            if (rect.isPointInRectangle(new engine.Point(x, y))) {
+            if (rect.isPointInRectangle(new angel.Point(x, y))) {
                 if (this.eventArray.length != 0) {
-                    engine.EventManager.getInstance().targetDisplayObjcetArray.push(this);
+                    angel.EventManager.getInstance().targetDisplayObjcetArray.push(this);
                 }
                 return this;
             }
@@ -320,7 +320,7 @@ var engine;
         };
         return Bitmap;
     }(DisplayObject));
-    engine.Bitmap = Bitmap;
+    angel.Bitmap = Bitmap;
     var TextField = (function (_super) {
         __extends(TextField, _super);
         function TextField() {
@@ -331,14 +331,14 @@ var engine;
             return _this;
         }
         TextField.prototype.hitTest = function (x, y) {
-            var rect = new engine.Rectangle();
+            var rect = new angel.Rectangle();
             rect.x = 0;
             rect.y = -this.size; //????????
             rect.width = this.size * this.text.length;
             rect.height = this.size;
-            if (rect.isPointInRectangle(new engine.Point(x, y))) {
+            if (rect.isPointInRectangle(new angel.Point(x, y))) {
                 if (this.eventArray.length != 0) {
-                    engine.EventManager.getInstance().targetDisplayObjcetArray.push(this);
+                    angel.EventManager.getInstance().targetDisplayObjcetArray.push(this);
                 }
                 return this;
             }
@@ -348,7 +348,7 @@ var engine;
         };
         return TextField;
     }(DisplayObject));
-    engine.TextField = TextField;
+    angel.TextField = TextField;
     var Button = (function (_super) {
         __extends(Button, _super);
         function Button() {
@@ -360,14 +360,14 @@ var engine;
             return _this;
         }
         Button.prototype.hitTest = function (x, y) {
-            var rect = new engine.Rectangle();
+            var rect = new angel.Rectangle();
             rect.x = 0;
             rect.y = -this.size; //????????
             rect.width = this.size * this.text.length;
             rect.height = this.size;
-            if (rect.isPointInRectangle(new engine.Point(x, y)) && this.enable) {
+            if (rect.isPointInRectangle(new angel.Point(x, y)) && this.enable) {
                 if (this.eventArray.length != 0) {
-                    engine.EventManager.getInstance().targetDisplayObjcetArray.push(this);
+                    angel.EventManager.getInstance().targetDisplayObjcetArray.push(this);
                 }
                 return this;
             }
@@ -376,12 +376,12 @@ var engine;
             }
         };
         Button.prototype.addEventListener = function (type, func, targetDisplayObject, ifCapture) {
-            var e = new engine.TheEvent(type, func, targetDisplayObject, ifCapture);
+            var e = new angel.TheEvent(type, func, targetDisplayObject, ifCapture);
             this.eventArray.push(e);
         };
         return Button;
     }(DisplayObject));
-    engine.Button = Button;
+    angel.Button = Button;
     var DisplayObjectContainer = (function (_super) {
         __extends(DisplayObjectContainer, _super);
         function DisplayObjectContainer() {
@@ -413,11 +413,11 @@ var engine;
         };
         DisplayObjectContainer.prototype.hitTest = function (x, y) {
             if (this.eventArray.length != 0) {
-                engine.EventManager.getInstance().targetDisplayObjcetArray.push(this);
+                angel.EventManager.getInstance().targetDisplayObjcetArray.push(this);
             }
             for (var i = this.children.length - 1; i >= 0; i--) {
                 var child = this.children[i];
-                var pointBaseOnChild = engine.pointAppendMatrix(new engine.Point(x, y), engine.invertMatrix(child.matrix)); //通过与逆矩阵相乘得出点的相对坐标---点向量
+                var pointBaseOnChild = angel.pointAppendMatrix(new angel.Point(x, y), angel.invertMatrix(child.matrix)); //通过与逆矩阵相乘得出点的相对坐标---点向量
                 var hitTestResult = child.hitTest(pointBaseOnChild.x, pointBaseOnChild.y); //树的遍历
                 if (hitTestResult) {
                     return hitTestResult;
@@ -427,7 +427,7 @@ var engine;
         };
         return DisplayObjectContainer;
     }(DisplayObject));
-    engine.DisplayObjectContainer = DisplayObjectContainer;
+    angel.DisplayObjectContainer = DisplayObjectContainer;
     var MovieClip = (function (_super) {
         __extends(MovieClip, _super);
         function MovieClip(data) {
@@ -450,10 +450,10 @@ var engine;
             return _this;
         }
         MovieClip.prototype.play = function () {
-            engine.Ticker.getInstance().register(this.ticker);
+            angel.Ticker.getInstance().register(this.ticker);
         };
         MovieClip.prototype.stop = function () {
-            engine.Ticker.getInstance().unregister(this.ticker);
+            angel.Ticker.getInstance().unregister(this.ticker);
         };
         MovieClip.prototype.setMovieClipData = function (data) {
             this.data = data;
@@ -463,19 +463,19 @@ var engine;
     }(Bitmap));
     MovieClip.FRAME_TIME = 20;
     MovieClip.TOTAL_FRAME = 12;
-    engine.MovieClip = MovieClip;
-})(engine || (engine = {}));
-var engine;
-(function (engine) {
-    engine.run = function (canvas) {
-        var stage = new engine.DisplayObjectContainer();
+    angel.MovieClip = MovieClip;
+})(angel || (angel = {}));
+var angel;
+(function (angel) {
+    angel.run = function (canvas) {
+        var stage = new angel.DisplayObjectContainer();
         var context2D = canvas.getContext("2d");
         var lastNow = Date.now();
         var renderer = new CanvasRenderer(stage, context2D);
         var frameHandler = function () {
             var now = Date.now();
             var deltaTime = now - lastNow;
-            engine.Ticker.getInstance().notify(deltaTime);
+            angel.Ticker.getInstance().notify(deltaTime);
             context2D.clearRect(0, 0, 400, 400);
             context2D.save();
             stage.update();
@@ -489,18 +489,18 @@ var engine;
         var hitResult; //检测是否点到控件
         window.onmousedown = function (e) {
             isMouseDown = true;
-            var targetDisplayObjectArray = engine.EventManager.getInstance().targetDisplayObjcetArray;
+            var targetDisplayObjectArray = angel.EventManager.getInstance().targetDisplayObjcetArray;
             targetDisplayObjectArray.splice(0, targetDisplayObjectArray.length);
             hitResult = stage.hitTest(e.offsetX, e.offsetY);
-            engine.currentX = e.offsetX;
-            engine.currentY = e.offsetY;
+            angel.currentX = e.offsetX;
+            angel.currentY = e.offsetY;
         };
         window.onmousemove = function (e) {
-            var targetDisplayObjcetArray = engine.EventManager.getInstance().targetDisplayObjcetArray;
-            engine.lastX = engine.currentX;
-            engine.lastY = engine.currentY;
-            engine.currentX = e.offsetX;
-            engine.currentY = e.offsetY;
+            var targetDisplayObjcetArray = angel.EventManager.getInstance().targetDisplayObjcetArray;
+            angel.lastX = angel.currentX;
+            angel.lastY = angel.currentY;
+            angel.currentX = e.offsetX;
+            angel.currentY = e.offsetY;
             if (isMouseDown) {
                 for (var i = 0; i < targetDisplayObjcetArray.length; i++) {
                     for (var _i = 0, _a = targetDisplayObjcetArray[i].eventArray; _i < _a.length; _i++) {
@@ -522,7 +522,7 @@ var engine;
         };
         window.onmouseup = function (e) {
             isMouseDown = false;
-            var targetDisplayObjcetArray = engine.EventManager.getInstance().targetDisplayObjcetArray;
+            var targetDisplayObjcetArray = angel.EventManager.getInstance().targetDisplayObjcetArray;
             targetDisplayObjcetArray.splice(0, targetDisplayObjcetArray.length);
             var newHitRusult = stage.hitTest(e.offsetX, e.offsetY);
             for (var i = targetDisplayObjcetArray.length - 1; i >= 0; i--) {
@@ -582,4 +582,4 @@ var engine;
         };
         return CanvasRenderer;
     }());
-})(engine || (engine = {}));
+})(angel || (angel = {}));

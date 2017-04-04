@@ -1,16 +1,16 @@
-namespace engine {
+namespace angel {
 
         export class Tween {
 
         private moveTimer;
 
-        private moveData : engine.MovieClipData;
+        private moveData : MovieClipData;
 
-        private idleData : engine.MovieClipData;
+        private idleData :MovieClipData;
 
-        private object : engine.MovieClip;
+        private object : MovieClip;
 
-        constructor(object : engine.MovieClip, moveData : engine.MovieClipData, idleData : engine.MovieClipData){
+        constructor(object : MovieClip, moveData : MovieClipData, idleData : MovieClipData){
 
             this.object = object;
             this.moveData = moveData;

@@ -1,4 +1,4 @@
-declare namespace engine {
+declare namespace angel {
     class Point {
         x: number;
         y: number;
@@ -30,7 +30,7 @@ declare namespace engine {
         updateFromDisplayObject(x: number, y: number, scaleX: number, scaleY: number, rotation: number): void;
     }
 }
-declare namespace engine {
+declare namespace angel {
     class TheEvent {
         type: string;
         ifCapture: boolean;
@@ -44,7 +44,7 @@ declare namespace engine {
         static getInstance(): EventManager;
     }
 }
-declare namespace engine {
+declare namespace angel {
     type Ticker_Listener_Type = (deltaTime: number) => void;
     class Ticker {
         private static instance;
@@ -55,19 +55,19 @@ declare namespace engine {
         notify(deltaTime: number): void;
     }
 }
-declare namespace engine {
+declare namespace angel {
     class Tween {
         private moveTimer;
         private moveData;
         private idleData;
         private object;
-        constructor(object: engine.MovieClip, moveData: engine.MovieClipData, idleData: engine.MovieClipData);
+        constructor(object: MovieClip, moveData: MovieClipData, idleData: MovieClipData);
         moveTo(targetX: number, targetY: number): void;
         moveToStepByStep(point: Point[]): void;
         removeTween(): void;
     }
 }
-declare namespace engine {
+declare namespace angel {
     type MovieClipData = {
         name: string;
         frames: MovieClipFrameData[];
@@ -141,7 +141,7 @@ declare namespace engine {
         setMovieClipData(data: MovieClipData): void;
     }
 }
-declare namespace engine {
+declare namespace angel {
     var currentX: number;
     var currentY: number;
     var lastX: number;

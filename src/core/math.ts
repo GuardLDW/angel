@@ -1,4 +1,4 @@
-namespace engine {
+namespace angel {
 
     export class Point {
         x: number;
