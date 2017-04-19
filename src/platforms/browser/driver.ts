@@ -21,8 +21,8 @@ namespace angel{
             
             context2D.clearRect(0, 0, 400, 400);
             context2D.save();
-            stage.update();
-            renderer.render();
+            stage.update();//计算
+            renderer.render();//渲染
             context2D.restore();
             lastNow = now;
             window.requestAnimationFrame(frameHandler);
@@ -123,8 +123,6 @@ namespace angel{
         }
 
         renderContainer(container: DisplayObjectContainer) {
-
-            
 
             for (let child of container.children) {
 

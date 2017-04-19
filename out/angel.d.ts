@@ -57,7 +57,6 @@ declare namespace angel {
 }
 declare namespace angel {
     class Tween {
-        private moveTimer;
         private moveData;
         private idleData;
         private object;
@@ -117,7 +116,6 @@ declare namespace angel {
         enable: boolean;
         constructor();
         hitTest(x: number, y: number): this;
-        addEventListener(type: string, func: Function, targetDisplayObject: DisplayObject, ifCapture: boolean): void;
     }
     class DisplayObjectContainer extends DisplayObject {
         children: DisplayObject[];

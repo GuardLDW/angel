@@ -1,6 +1,5 @@
 namespace angel {
 
-
     export type MovieClipData = {
 
         name : string;
@@ -8,11 +7,13 @@ namespace angel {
     }
 
     export type MovieClipFrameData = {
+
         "image": string
     }
 
 
     export interface Drawable {
+
         update();
     }
 
@@ -109,7 +110,7 @@ namespace angel {
                 if(this.eventArray.length != 0){
                 
                     EventManager.getInstance().targetDisplayObjcetArray.push(this);
-                }
+                }   
 
                 return this;
 
@@ -197,12 +198,6 @@ namespace angel {
 
                 return null;
             }    
-        }
-
-        addEventListener(type : string, func : Function, targetDisplayObject : DisplayObject, ifCapture : boolean){
-        
-            let e = new TheEvent(type, func, targetDisplayObject, ifCapture);
-            this.eventArray.push(e);
         }
     
     }

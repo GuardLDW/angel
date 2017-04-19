@@ -26,7 +26,6 @@ var angel;
             this.height = 1;
         }
         Rectangle.prototype.isPointInRectangle = function (point) {
-            console.log("333");
             var rect = this;
             if (point.x < rect.width + rect.x &&
                 point.y < rect.height + rect.y &&
@@ -196,14 +195,14 @@ var angel;
             object.isMove = true;
             object.setMovieClipData(moveData);
             //开启移动线程
-            this.moveTimer = setInterval(function () {
+            var moveTimer = setInterval(function () {
                 if (Math.abs(object.x - targetX) <= object.moveSpeed && Math.abs(object.y - targetY) <= object.moveSpeed) {
                     console.log("OK");
                     object.x = targetX;
                     object.y = targetY;
                     object.setMovieClipData(idleData);
                     object.isMove = false;
-                    clearInterval(this.moveTimer);
+                    clearInterval(moveTimer);
                 }
                 if (object.x > targetX) {
                     object.x = object.x - object.moveSpeed;
@@ -217,7 +216,7 @@ var angel;
                 else if (object.y < targetY) {
                     object.y = object.y + object.moveSpeed;
                 }
-            }, 50);
+            }, 40);
         };
         Tween.prototype.moveToStepByStep = function (point) {
             var _this = this;
@@ -227,24 +226,25 @@ var angel;
                 if (!object.isMove) {
                     _this.moveTo(point[i].x, point[i].y);
                 }
-                if (object.x == point[point.length - 1].x && object.y == object[point.length - 1].y) {
+                if (object.x == point[point.length - 1].x && object.y == point[point.length - 1].y) {
                     clearInterval(stepMoveInterval);
                 }
-                console.log("playerX: " + object.x);
-                console.log("playerY: " + object.y);
-                console.log("targetX: " + point[i].x);
-                console.log("targetY: " + point[i].y);
+                //console.log("playerX: " + object.x);
+                //console.log("playerY: " + object.y);
+                //console.log("targetX: " + point[i].x);
+                //console.log("targetY: " + point[i].y);
+                //console.log("destinationX: " + point[point.length - 1].x);
+                //console.log("destinantionY: " + point[point.length - 1].y);
                 if (i < point.length - 1 && object.x == point[i].x && object.y == point[i].y) {
                     i++;
                 }
                 console.log("i:" + i);
-            }, 200);
+            }, 80);
         };
         Tween.prototype.removeTween = function () {
-            this.object.isMove = false;
-            if (this.moveTimer) {
-                clearInterval(this.moveTimer);
-            }
+            var object = this.object;
+            object.isMove = false;
+            moveTo(object.x, object.y);
         };
         return Tween;
     }());
@@ -375,10 +375,6 @@ var angel;
                 return null;
             }
         };
-        Button.prototype.addEventListener = function (type, func, targetDisplayObject, ifCapture) {
-            var e = new angel.TheEvent(type, func, targetDisplayObject, ifCapture);
-            this.eventArray.push(e);
-        };
         return Button;
     }(DisplayObject));
     angel.Button = Button;
@@ -478,8 +474,8 @@ var angel;
             angel.Ticker.getInstance().notify(deltaTime);
             context2D.clearRect(0, 0, 400, 400);
             context2D.save();
-            stage.update();
-            renderer.render();
+            stage.update(); //计算
+            renderer.render(); //渲染
             context2D.restore();
             lastNow = now;
             window.requestAnimationFrame(frameHandler);
